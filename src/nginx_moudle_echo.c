@@ -51,3 +51,57 @@ ngx_http_echo(ngx_conf_t *f,ngx_command_t *cmd , void *conf)
         ngx_conf_set_str_slot(cf,cmf,conf);
         return NGX_CONF_OK;
 }
+
+//创建合并配置信息 定义模块Context
+/**
+ * 定义ngx_http_module_t类型的结构体变量   命名规则为ngx_http_[module-name]_module_ctx，这个结构主要用于定义各个Hook函数
+ *
+ * 可以看到一共有8个Hook注入点，分别会在不同时刻被Nginx调用，由于我们的模块仅仅用于location域，这里将不需要的注入点设为NULL即可。
+ *
+ * ngx_http_echo_create_loc_conf  ngx_http_echo_merge_loc_conf 这两个函数会被Nginx自动调用。注意这里的命名规则：ngx_http_[module-name]_[create|merge]_[main|srv|loc]_conf。
+ */
+static ngx_http_module_t ngx_http_echo_module_ctx = {
+        NULL,                                  /* preconfiguration */
+        NULL,                                  /* postconfiguration */
+        NULL,                                  /* create main configuration */
+        NULL,                                  /* init main configuration */
+        NULL,                                  /* create server configuration */
+        NULL,                                  /* merge server configuration */
+        ngx_http_echo_create_loc_conf,         /* create location configration */
+        ngx_http_echo_merge_loc_conf           /* merge location configration */
+};
+
+/**
+ * 初始化一个配置结构体
+ * @param cf
+ * @return
+ */
+static char *
+ngx_http_echo_create_loc_conf(ngx_conf_t *cf)
+{
+        ngx_http_echo_loc_conf_t *conf;
+        conf = ngx_pcalloc(cf->pool, sizeof(ngx_http_echo_loc_conf_t)); //gx_pcalloc用于在Nginx内存池中分配一块空间，是pcalloc的一个包装
+        if(conf == NULL) {
+                return NGX_CONF_ERROR;
+        }
+        conf->ed.len = 0;
+        conf->ed.data = NULL;
+        return conf;
+}
+/**
+ * 将其父block的配置信息合并到此结构体 实现了配置的继承
+ * @param cf
+ * @param parent
+ * @param child
+ * @return ngx status code
+ *
+ * ngx_conf_merge_str_value不是一个函数，而是一个宏，其定义在https://github.com/nginx/nginx/blob/master/src/core/ngx_conf_file.h#L205中
+ */
+static char *
+ngx_http_echo_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
+{
+    ngx_http_echo_loc_conf_t *prev = parent;
+    ngx_http_echo_loc_conf_t *conf = child;
+    ngx_conf_merge_str_value(conf->ed, prev->ed, '"');
+    return NGX_CONF_OK;
+}

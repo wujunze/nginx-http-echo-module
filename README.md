@@ -1,3 +1,4 @@
+[简体中文](http://git.oschina.net/wujunze/nginx_module_echo/blob/master/README_zh.md)
 # nginx_module_echo
 echo string
 
@@ -39,3 +40,10 @@ typedef struct {
 #Define Nginx instruction and parameter conversion function
 ![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgjdis37udj30xj0bktan.jpg)
 
+# definition module Context
+1. Define the type of ngx_http_module_t structure variables
+![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgjer4wtrxj313u09igo7.jpg)
+2. Initialize a configuration structure
+![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgjerqnq71j30zd08fmyd.jpg)
+3. Will the father block configuration information incorporated into this structure Implement the configuration of inheritance
+![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgjes12fy5j30ya08qgn7.jpg)

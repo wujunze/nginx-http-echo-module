@@ -39,3 +39,10 @@ typedef struct {
 #定义echo模块的指令和参数转化函数
 ![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgjdis37udj30xj0bktan.jpg)
 
+# 定义模块Context
+1. 定义ngx_http_module_t类型的结构体变量
+![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgjer4wtrxj313u09igo7.jpg)
+2. 初始化一个配置结构体
+![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgjerqnq71j30zd08fmyd.jpg)
+3. 将其父block的配置信息合并到此结构体 实现了配置的继承
+![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgjes12fy5j30ya08qgn7.jpg)
