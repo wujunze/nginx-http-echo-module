@@ -1,19 +1,20 @@
-# nginx_module_echo
+# 实战开发一个Nginx拓展
+## nginx_module_echo
 使用echo指令输出一个字符串
 
-# Nginx 版本
+## Nginx 版本
 Nginx1.0.10 https://github.com/nginx/nginx/releases/tag/release-1.0.10
 ![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgimmvpk3sj30mi04p3z9.jpg)
 
-# 开发环境
+## 开发环境
 ```shell
 OS : CentOS Linux release 7.2.1511 (Core)
 ```
 ![image](https://wx4.sinaimg.cn/large/005LOzcmly1fgimnlvhh0j30s106imxw.jpg)
 ![image](https://wx4.sinaimg.cn/large/005LOzcmly1fgimnlwy1fj315u0dwdhn.jpg)
 
-# 安装一个干净的 Nginx
-1. Download a Nginx10.10 and unpack it
+## 安装一个干净的 Nginx
+1. 下载 Nginx10.10 并且解压它
 ![image](http://wx2.sinaimg.cn/large/005LOzcmly1fgimq77ahwj30pw05et9n.jpg)
 
 2. 安装gcc和Nginx需要的lib
@@ -28,7 +29,7 @@ OS : CentOS Linux release 7.2.1511 (Core)
 ![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgimy3dkk5j30rr05ddh5.jpg)
 ![image](https://ws1.sinaimg.cn/large/005LOzcmly1fgimyc58d3j31vk0qsq9y.jpg)
 
-# 定义模块配置结构
+## 定义模块配置结构
 ```C
 typedef struct {
     ngx_str_t ed;  //该结构体定义在这里 https://github.com/nginx/nginx/blob/master/src/core/ngx_string.h
@@ -39,7 +40,7 @@ typedef struct {
 #定义echo模块的指令和参数转化函数
 ![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgjdis37udj30xj0bktan.jpg)
 
-# 定义模块Context
+## 定义模块Context
 1. 定义ngx_http_module_t类型的结构体变量
 ![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgjer4wtrxj313u09igo7.jpg)
 2. 初始化一个配置结构体
@@ -47,5 +48,5 @@ typedef struct {
 3. 将其父block的配置信息合并到此结构体 实现了配置的继承
 ![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgjes12fy5j30ya08qgn7.jpg)
 
-# Write the Handler really work part of the module
+## 编写Handler  模块真正干活儿的部分
 ![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjfosnvf5j31hy0q6wlb.jpg)

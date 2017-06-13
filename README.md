@@ -1,19 +1,20 @@
-[简体中文](http://git.oschina.net/wujunze/nginx_module_echo/blob/master/README_zh.md)
-# nginx_module_echo
+# Practical development Nginx
+**[简体中文](http://git.oschina.net/wujunze/nginx_module_echo/blob/master/README_zh.md)**
+## nginx_module_echo
 echo string
 
-# Nginx Version
+## Nginx Version
 Nginx1.0.10 https://github.com/nginx/nginx/releases/tag/release-1.0.10
 ![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgimmvpk3sj30mi04p3z9.jpg)
 
-# The development environment configuration
+## The development environment configuration
 ```shell
 OS : CentOS Linux release 7.2.1511 (Core)
 ```
 ![image](https://wx4.sinaimg.cn/large/005LOzcmly1fgimnlvhh0j30s106imxw.jpg)
 ![image](https://wx4.sinaimg.cn/large/005LOzcmly1fgimnlwy1fj315u0dwdhn.jpg)
 
-# Install a clean compile Nginx
+## Install a clean compile Nginx
 1. Download a Nginx10.10 and unpack it
 ![image](http://wx2.sinaimg.cn/large/005LOzcmly1fgimq77ahwj30pw05et9n.jpg)
 
@@ -29,7 +30,7 @@ OS : CentOS Linux release 7.2.1511 (Core)
 ![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgimy3dkk5j30rr05ddh5.jpg)
 ![image](https://ws1.sinaimg.cn/large/005LOzcmly1fgimyc58d3j31vk0qsq9y.jpg)
 
-# Definition module configuration structure
+## Definition module configuration structure
 ```C
 typedef struct {
     ngx_str_t ed;  //该结构体定义在这里 https://github.com/nginx/nginx/blob/master/src/core/ngx_string.h
@@ -40,7 +41,7 @@ typedef struct {
 #Define Nginx instruction and parameter conversion function
 ![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgjdis37udj30xj0bktan.jpg)
 
-# definition module Context
+## definition module Context
 1. Define the type of ngx_http_module_t structure variables
 ![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgjer4wtrxj313u09igo7.jpg)
 2. Initialize a configuration structure
@@ -48,5 +49,5 @@ typedef struct {
 3. Will the father block configuration information incorporated into this structure Implement the configuration of inheritance
 ![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgjes12fy5j30ya08qgn7.jpg)
 
-#
+## Write the Handler really work part of the module
 ![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjfosnvf5j31hy0q6wlb.jpg)
