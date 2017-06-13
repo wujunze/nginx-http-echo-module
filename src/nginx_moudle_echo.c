@@ -105,3 +105,83 @@ ngx_http_echo_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
     ngx_conf_merge_str_value(conf->ed, prev->ed, '"');
     return NGX_CONF_OK;
 }
+
+/**
+ * handler会接收一个ngx_http_request_t指针类型的参数，这个参数指向一个ngx_http_request_t结构体，此结构体存储了这次HTTP请求的一些信息，这个结构定义在https://github.com/nginx/nginx/blob/master/src/http/ngx_http_request.h中：
+ *
+ * 第一步是获取模块配置信息，这一块只要简单使用ngx_http_get_module_loc_conf就可以了。
+ * 第二步是功能逻辑，因为echo模块非常简单，只是简单输出一个字符串，所以这里没有功能逻辑代码。
+ * 第三步是设置response header。Header内容可以通过填充headers_out实现，我们这里只设置了Content-type和Content-length等基本内容，ngx_http_headers_out_t定义了所有可以设置的HTTP Response Header信息 这个结构体在https://github.com/nginx/nginx/blob/master/src/http/ngx_http_request.h 设置好头信息后使用ngx_http_send_header就可以将头信息输出，ngx_http_send_header接受一个ngx_http_request_t类型的参数。
+ * 第四步也是最重要的一步是输出Response body。   Nginx的I/O机制  Nginx允许handler一次产生一组输出，可以产生多次，Nginx将输出组织成一个单链表结构，链表中的每个节点是一个chain_t，定义在https://github.com/nginx/nginx/blob/master/src/core/ngx_buf.h
+ * @param r   ngx_http_request_t指针
+ * @return
+ */
+static ngx_int_t
+ngx_http_echo_handler(ngx_http_request_t *r)
+{
+    ngx_int_t rc;
+    ngx_buf_t *b;
+    ngx_chain_t out;
+    ngx_http_echo_loc_conf_t *elcf;
+    elcf = ngx_http_get_module_loc_conf(r,ngx_http_echo_module);
+    if(!(r->method & (NGX_HTTP_HEAD|NGX_HTTP_GET|NGX_HTTP_POST)))
+    {
+        return NGX_HTTP_NOT_ALLOWED;
+    }
+    r->headers_out.content_type.len= sizeof("text/html") - 1;
+    r->headers_out.content_type.data = (u_char *) "text/html";
+    r->headers_out.status = NGX_HTTP_OK;
+    r->headers_out.content_length_n = elcf->ed.len;
+    if(r->method == NGX_HTTP_HEAD)
+    {
+        rc = ngx_http_send_header(r);
+        if(rc != NGX_OK)
+        {
+            return rc;
+        }
+    }
+    b = ngx_pcalloc(r->pool, sizeof(ngx_buf_t));
+    if(b == NULL)
+    {
+        ngx_log_error(NGX_LOG_ERROR, r->connection->log, 0, "Failed to allocate response buffer.");
+        return NGX_HTTP_INTERNAL_SERVER_ERROR;
+    }
+    out.buf = b;
+    put.next = NULL;
+    b->pos = elcf->ed.data;
+    b->last = elcf->ed.data + (elcf->ed.len);
+    b->memory = 1;
+    b->last_buf = 1;
+    rc = ngx_http_send_header(r);
+    if(rc != NGX_OK)
+    {
+        return rc;
+    }
+    return ngx_http_output_filter(r, &out);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

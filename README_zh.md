@@ -46,3 +46,6 @@ typedef struct {
 ![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgjerqnq71j30zd08fmyd.jpg)
 3. 将其父block的配置信息合并到此结构体 实现了配置的继承
 ![image](https://wx3.sinaimg.cn/large/005LOzcmly1fgjes12fy5j30ya08qgn7.jpg)
+
+# Write the Handler really work part of the module
+![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjfosnvf5j31hy0q6wlb.jpg)
