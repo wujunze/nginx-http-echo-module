@@ -5,13 +5,13 @@ echo string
 
 ## Nginx Version
 Nginx1.0.10 https://github.com/nginx/nginx/releases/tag/release-1.0.10
-![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgimmvpk3sj30mi04p3z9.jpg)
+![image](http://wx1.sinaimg.cn/large/005LOzcmly1fgimmvpk3sj30mi04p3z9.jpg)
 
 ## The development environment configuration
 ```shell
 OS : CentOS Linux release 7.2.1511 (Core)
 ```
-![image](https://wx4.sinaimg.cn/large/005LOzcmly1fgimnlvhh0j30s106imxw.jpg)
+![image](http://wx4.sinaimg.cn/large/005LOzcmly1fgimnlvhh0j30s106imxw.jpg)
 ![image](https://wx4.sinaimg.cn/large/005LOzcmly1fgimnlwy1fj315u0dwdhn.jpg)
 
 ## Install a clean compile Nginx
