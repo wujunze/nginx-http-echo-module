@@ -1,4 +1,4 @@
-# 实战开发一个Nginx拓展 (Nginx Module)
+# 实战开发一个Nginx扩展 (Nginx Module)
 
 ## nginx_module_echo
 使用echo指令输出一个字符串
