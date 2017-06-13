@@ -1,7 +1,7 @@
 # nginx_module_echo
 echo string
 
-# Nginxx Version
+# Nginx Version
 Nginx1.0.10 https://github.com/nginx/nginx/releases/tag/release-1.0.10
 ![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgimmvpk3sj30mi04p3z9.jpg)
 
@@ -35,3 +35,7 @@ typedef struct {
 } ngx_http_echo_loc_conf_t;
 ```
 ![image](https://wx2.sinaimg.cn/large/005LOzcmly1fgin4at3rsj30rp04g74r.jpg)
+
+#Define Nginx instruction and parameter conversion function
+![image](https://wx1.sinaimg.cn/large/005LOzcmly1fgjdis37udj30xj0bktan.jpg)
+
