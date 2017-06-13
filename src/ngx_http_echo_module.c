@@ -1,12 +1,12 @@
 /*
- * @file:    nginx_moufle_echo.c
+ * @file:    nginx_http_echo_module.c
  * @brief:   Nginx echo command output a string
- * @author:  Panda <vozlt@vozlt.com>
+ * @author:  Panda <itwujunze@163.com>
  * @version: 1.0.1
  * @date:    2017/6/12
  *
  * Compile:
- *           shell> ./configure --add-module=/path/to/nginx_moudle_echo.c
+ *           shell> ./configure --add-module=/path/to/nginx_http_echo_module.c
  *
  */
 
@@ -34,7 +34,7 @@ static ngx_command_t ngx_http_echo_commands[] = {
                 NGX_HTTP_LOC_CONF | NGX_CONF_TAKE1,
                 ngx_http_echo,
                 NGX_HTTP_LOC_CONF_OFFSET,
-                offsetof(ngx_http_echo_oc_conf_t, ed),
+                offsetof(ngx_http_echo_loc_conf_t, ed),
                 NULL,
         },
         ngx_null_command,
@@ -123,11 +123,11 @@ ngx_http_echo_handler(ngx_http_request_t *r)
     b = ngx_pcalloc(r->pool, sizeof(ngx_buf_t));
     if(b == NULL)
     {
-        ngx_log_error(NGX_LOG_ERROR, r->connection->log, 0, "Failed to allocate response buffer.");
+        ngx_log_error(NGX_LOG_ERR, r->connection->log, 0, "Failed to allocate response buffer.");
         return NGX_HTTP_INTERNAL_SERVER_ERROR;
     }
     out.buf = b;
-    put.next = NULL;
+    out.next = NULL;
     b->pos = elcf->ed.data;
     b->last = elcf->ed.data + (elcf->ed.len);
     b->memory = 1;
@@ -148,12 +148,12 @@ ngx_http_echo_handler(ngx_http_request_t *r)
  * @return ngx status code
  */
 static char *
-ngx_http_echo(ngx_conf_t *f,ngx_command_t *cmd , void *conf)
+ngx_http_echo(ngx_conf_t *cf,ngx_command_t *cmd , void *conf)
 {
         ngx_http_core_loc_conf_t *clcf;
-        clcf = ngx_http_conf_get_module_loc_conf(cf,ngx_http_core_module);
-        clcf->handle = ngx_http_echo_handler;  //修改核心模块配置(也就是当前location),将其handler替换为我们自己定义的ngx_http_echo_handler
-        ngx_conf_set_str_slot(cf,cmf,conf);
+        clcf = ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
+        clcf->handler = ngx_http_echo_handler;  //修改核心模块配置(也就是当前location),将其handler替换为我们自己定义的ngx_http_echo_handler
+        ngx_conf_set_str_slot(cf,cmd,conf);
         return NGX_CONF_OK;
 }
 
@@ -164,7 +164,7 @@ ngx_http_echo(ngx_conf_t *f,ngx_command_t *cmd , void *conf)
  * @param cf
  * @return
  */
-static char *
+static void *
 ngx_http_echo_create_loc_conf(ngx_conf_t *cf)
 {
         ngx_http_echo_loc_conf_t *conf;
@@ -202,18 +202,6 @@ ngx_http_echo_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
 static ngx_int_t
 ngx_http_echo_init(ngx_conf_t *cf)
 {
-    ngx_http_handler_pt       *h;
-    ngx_http_core_main_conf_t *cmcf;
-
-    cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);
-
-    h = ngx_array_push(&cmcf->phases[NGX_HTTP_CONTENT_PHASE].handlers);
-    if (h == NULL) {
-        return NGX_ERROR;
-    }
-
-    *h = ngx_http_echo_handler;
-
     return NGX_OK;
 }
 

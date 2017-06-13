@@ -54,6 +54,28 @@ typedef struct {
 ## 组合Nginx Module
 ![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjjo2l11jj31en0g4gq1.jpg)
 
+## 整理模块代码 按照Nginx官方规范
+![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjnxy9ikvj31yx12jwr3.jpg)
+
+## 编写config文件
+```shell
+ngx_addon_name=ngx_http_echo_module
+HTTP_MODULES="$HTTP_MODULES ngx_http_echo_module"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_echo_module.c"
+```
+## 编译安装echo模块
+```shell
+ ./configure --prefix=/usr/local/nginx/ --add-module=/root/ngx_dev && make && make install
+```
+## 安装成功
+![image](https://ws3.sinaimg.cn/large/005LOzcmly1fgjnvxyqx4j30w40f0tbw.jpg)
+
+## 修改Nginx配置文件测试Module
+![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjnz17rh7j30jl07yaai.jpg)
+
+## Nginx echo Module 运行成功
+![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjo0r1a5dj30yf06tmxv.jpg)
+
 >参考文献
  [1] Evan Miller, Emiller's Guide To Nginx Module Development. http://www.evanmiller.org/nginx-modules-guide.html, 2009
  [2] http://wiki.nginx.org/Configuration

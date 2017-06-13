@@ -1,4 +1,4 @@
-# Practical development Nginx Module
+# Practical development ginx Module
 **[简体中文](http://git.oschina.net/wujunze/nginx_module_echo/blob/master/README_zh.md)**
 ## nginx_module_echo
 echo string
@@ -54,6 +54,28 @@ typedef struct {
 
 ## Combination Nginx module
 ![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjjo2l11jj31en0g4gq1.jpg)
+
+## Finishing module code According to the Nginx official specification
+![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjnxy9ikvj31yx12jwr3.jpg)
+
+## Write the config file
+```shell
+ngx_addon_name=ngx_http_echo_module
+HTTP_MODULES="$HTTP_MODULES ngx_http_echo_module"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_echo_module.c"
+```
+## make && make install
+```shell
+ ./configure --prefix=/usr/local/nginx/ --add-module=/root/ngx_dev && make && make install
+```
+## Successful installation
+![image](https://ws3.sinaimg.cn/large/005LOzcmly1fgjnvxyqx4j30w40f0tbw.jpg)
+
+## Modify the Nginx configuration file test Module
+![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjnz17rh7j30jl07yaai.jpg)
+
+## Nginx echo Module The successful running
+![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjo0r1a5dj30yf06tmxv.jpg)
 
 >reference
  [1] Evan Miller, Emiller's Guide To Nginx Module Development. http://www.evanmiller.org/nginx-modules-guide.html, 2009
