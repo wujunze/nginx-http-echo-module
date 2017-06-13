@@ -54,3 +54,9 @@ typedef struct {
 
 ## Combination Nginx module
 ![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjjo2l11jj31en0g4gq1.jpg)
+
+>reference
+ [1] Evan Miller, Emiller's Guide To Nginx Module Development. http://www.evanmiller.org/nginx-modules-guide.html, 2009
+ [2] http://wiki.nginx.org/Configuration
+ [3] Clément Nedelcu, Nginx Http Server. Packt Publishing, 2010
+ [4] codinglabs http://blog.codinglabs.org/articles/intro-of-nginx-module-development.html
