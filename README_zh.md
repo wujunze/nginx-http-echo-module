@@ -1,4 +1,5 @@
 # 实战开发一个Nginx拓展 (Nginx Module)
+
 ## nginx_module_echo
 使用echo指令输出一个字符串
 
@@ -76,8 +77,9 @@ NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_echo_module.c"
 ## Nginx echo Module 运行成功
 ![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjo0r1a5dj30yf06tmxv.jpg)
 
->参考文献
- [1] Evan Miller, Emiller's Guide To Nginx Module Development. http://www.evanmiller.org/nginx-modules-guide.html, 2009
- [2] http://wiki.nginx.org/Configuration
- [3] Clément Nedelcu, Nginx Http Server. Packt Publishing, 2010
- [4] codinglabs http://blog.codinglabs.org/articles/intro-of-nginx-module-development.html
+# 如果这个repo对你有帮助  欢迎star fork   Thanks
+> ## 参考文档
+> 1. http://wiki.nginx.org/Configuration
+> 2. http://tengine.taobao.org/book/
+> 3. **http://blog.codinglabs.org/articles/intro-of-nginx-module-development.html**
+> 4. https://www.nginx.com/resources/wiki/modules/

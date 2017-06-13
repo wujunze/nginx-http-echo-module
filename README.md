@@ -77,8 +77,10 @@ NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/src/ngx_http_echo_module.c"
 ## Nginx echo Module The successful running
 ![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjo0r1a5dj30yf06tmxv.jpg)
 
->reference
- [1] Evan Miller, Emiller's Guide To Nginx Module Development. http://www.evanmiller.org/nginx-modules-guide.html, 2009
- [2] http://wiki.nginx.org/Configuration
- [3] Clément Nedelcu, Nginx Http Server. Packt Publishing, 2010
- [4] codinglabs http://blog.codinglabs.org/articles/intro-of-nginx-module-development.html
+# If the repo help you welcome star fork    Thanks!
+
+> ## reference
+> 1. http://wiki.nginx.org/Configuration
+> 2. http://tengine.taobao.org/book/
+> 3. **http://blog.codinglabs.org/articles/intro-of-nginx-module-development.html**
+> 4. https://www.nginx.com/resources/wiki/modules/
