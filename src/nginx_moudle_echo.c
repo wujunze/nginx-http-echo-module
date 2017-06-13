@@ -110,8 +110,11 @@ ngx_http_echo_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
  * handler会接收一个ngx_http_request_t指针类型的参数，这个参数指向一个ngx_http_request_t结构体，此结构体存储了这次HTTP请求的一些信息，这个结构定义在https://github.com/nginx/nginx/blob/master/src/http/ngx_http_request.h中：
  *
  * 第一步是获取模块配置信息，这一块只要简单使用ngx_http_get_module_loc_conf就可以了。
+ *
  * 第二步是功能逻辑，因为echo模块非常简单，只是简单输出一个字符串，所以这里没有功能逻辑代码。
+ *
  * 第三步是设置response header。Header内容可以通过填充headers_out实现，我们这里只设置了Content-type和Content-length等基本内容，ngx_http_headers_out_t定义了所有可以设置的HTTP Response Header信息 这个结构体在https://github.com/nginx/nginx/blob/master/src/http/ngx_http_request.h 设置好头信息后使用ngx_http_send_header就可以将头信息输出，ngx_http_send_header接受一个ngx_http_request_t类型的参数。
+ *
  * 第四步也是最重要的一步是输出Response body。   Nginx的I/O机制  Nginx允许handler一次产生一组输出，可以产生多次，Nginx将输出组织成一个单链表结构，链表中的每个节点是一个chain_t，定义在https://github.com/nginx/nginx/blob/master/src/core/ngx_buf.h
  * @param r   ngx_http_request_t指针
  * @return
@@ -160,6 +163,30 @@ ngx_http_echo_handler(ngx_http_request_t *r)
     return ngx_http_output_filter(r, &out);
 }
 
+/**
+ * 组合Nginx Module
+ *
+ * 上面完成了Nginx模块各种组件的开发下面就是将这些组合起来了。一个Nginx模块被定义为一个ngx_module_t结构体https://github.com/nginx/nginx/blob/master/src/core/ngx_module.h，这个结构体的字段很多，不过开头和结尾若干字段一般可以通过Nginx内置的宏去填充
+ *
+ * 开头和结尾分别用NGX_MODULE_V1和NGX_MODULE_V1_PADDING 填充了若干字段，就不去深究了。
+ * 这里主要需要填入的信息从上到下以依次为context、指令数组、模块类型以及若干特定事件的回调处理函数（不需要可以置为NULL），
+ * 其中内容还是比较好理解的，注意我们的echo是一个HTTP模块，所以这里类型是NGX_HTTP_MODULE，其它可用类型还有NGX_EVENT_MODULE（事件处理模块）和NGX_MAIL_MODULE（邮件模块）。
+ *
+ */
+ngx_module_t ngx_http_echo_module = {
+        NGX_MODULE_V1,
+        &ngx_http_echo_module_ctx,             /* module context */
+        ngx_http_echo_commands,                /* module directives */
+        NGX_HTTP_MODULE,                       /* module type */
+        NULL,                                  /* init master */
+        NULL,                                  /* init module */
+        NULL,                                  /* init process */
+        NULL,                                  /* init thread */
+        NULL,                                  /* exit thread */
+        NULL,                                  /* exit process */
+        NULL,                                  /* exit master */
+        NGX_MODULE_V1_PADDING
+};
 
 
 

@@ -1,4 +1,4 @@
-# Practical development Nginx
+# Practical development Nginx Module
 **[简体中文](http://git.oschina.net/wujunze/nginx_module_echo/blob/master/README_zh.md)**
 ## nginx_module_echo
 echo string
@@ -51,3 +51,6 @@ typedef struct {
 
 ## Write the Handler really work part of the module
 ![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjfosnvf5j31hy0q6wlb.jpg)
+
+## Combination Nginx module
+![image](https://ws2.sinaimg.cn/large/005LOzcmly1fgjjo2l11jj31en0g4gq1.jpg)
