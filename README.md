@@ -1,4 +1,4 @@
-# Practical development ginx Module
+# Practical development Nginx Module
 **[简体中文](http://git.oschina.net/wujunze/nginx_module_echo/blob/master/README_zh.md)**
 ## nginx_module_echo
 echo string
