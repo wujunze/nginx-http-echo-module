@@ -1,5 +1,7 @@
 # 实战开发一个Nginx扩展 (Nginx Module)
 
+[![Build Status](https://travis-ci.org/wujunze/nginx-http-echo-module.svg?branch=master)](https://travis-ci.org/wujunze/nginx-http-echo-module)
+
 ## nginx_module_echo
 使用echo指令输出一个字符串
 

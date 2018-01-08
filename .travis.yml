@@ -1,0 +1,39 @@
+language: c
+
+compiler:
+  - clang
+  - gcc
+
+script:
+  - wget "http://nginx.org/download/nginx-1.0.10.tar.gz"
+  - git clone https://github.com/wujunze/nginx-http-echo-module.git
+  - tar xzvf nginx-1.0.10.tar.gz
+  - cd nginx-1.0.10
+  - ./configure
+   --prefix=../nginx-build
+   --add-module=../nginx-http-echo-module
+  - make
+  - make install
+  - echo "
+   daemon on;
+   worker_processes  1;
+
+   events {
+     worker_connections  1024;
+   }
+
+   http {
+     include       mime.types;
+     default_type  application/octet-stream;
+     server {
+       listen 8080;
+       server_name wujunze.com;
+       resolver 8.8.8.8;
+       location / {
+         echo 'This is echo nginx module from https://wujunze.com/';
+       }
+     }
+   }" > ../nginx-build/conf/nginx.conf
+  - ../nginx-build/sbin/nginx -t
+  - ../nginx-build/sbin/nginx
+  - curl "http://wujunze.com" -x 127.0.0.1:8080 -I

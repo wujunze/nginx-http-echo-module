@@ -1,5 +1,8 @@
 # Practical development Nginx Module
-**[简体中文](http://git.oschina.net/wujunze/nginx_module_echo/blob/master/README_zh.md)**
+
+[![Build Status](https://travis-ci.org/wujunze/nginx-http-echo-module.svg?branch=master)](https://travis-ci.org/wujunze/nginx-http-echo-module)
+
+### [简体中文](http://git.oschina.net/wujunze/nginx_module_echo/blob/master/README_zh.md)
 ## nginx_module_echo
 echo string
 
